@@ -1,75 +1,75 @@
 const form = document.querySelector(".form");
-const taskDescription = document.querySelector(".tarefa-description");
-const tasks = JSON.parse(localStorage.getItem("tasks")) || [];
-let id;
+const tarefas = JSON.parse(localStorage.getItem("tarefa")) || [];
 
-tasks.forEach((item) => {
-  createTask(item.task);
+tarefas.forEach((tarefa) => {
+  criaTarefa(tarefa.tarefa, tarefa.id);
 });
 
 form.addEventListener("submit", (e) => {
   e.preventDefault();
+  const element = e.target;
 
-  const task = e.target.elements["tarefa"];
-  createTask(task.value, id);
+  const inputValue = element.elements["tarefa"];
+  const tarefas = document.querySelector(".lista-tarefas");
+  const id = tarefas.children.length;
 
-  insertTaskLocalStorage(task.value, id);
+  criaTarefa(inputValue.value, id);
+  inserirLocalStorage(inputValue.value, id);
 
-  task.value = "";
-  task.focus();
+  inputValue.value = "";
+  inputValue.focus();
 });
 
-function createElements() {
-  const divTask = document.createElement("div");
-  const checkBox = document.createElement("div");
-  const taskDesc = document.createElement("p");
-  const iconTrash = document.createElement("span");
+function criaTarefa(tarefa, id) {
+  const listaDeTarefas = document.querySelector(".lista-tarefas");
 
-  return {
-    divTask,
-    checkBox,
-    taskDesc,
-    iconTrash,
-  };
+  const li = document.createElement("li");
+  li.classList.add("tarefa");
+
+  const div = document.createElement("div");
+  div.classList.add("checkbox");
+
+  const p = document.createElement("p");
+  p.innerHTML = tarefa;
+
+  const span = document.createElement("span");
+  span.classList.add("material-symbols-outlined", "delete");
+  span.innerHTML = "delete";
+
+  li.appendChild(div);
+  li.appendChild(p);
+  li.appendChild(span);
+  li.setAttribute("uid", id);
+
+  listaDeTarefas.appendChild(li);
 }
 
-function createTask(task, id) {
-  const { divTask, checkBox, taskDesc, iconTrash } = createElements();
-  id = document.querySelectorAll(".tarefa").length;
-
-  divTask.classList.add("tarefa");
-  divTask.setAttribute("uid", id);
-  checkBox.classList.add("checkbox");
-  iconTrash.classList.add("material-symbols-outlined", "delete");
-  iconTrash.innerHTML = "delete";
-  taskDesc.innerHTML = task;
-
-  const container = document.querySelector(".tarefas .container");
-
-  divTask.appendChild(checkBox);
-  divTask.appendChild(taskDesc);
-  divTask.appendChild(iconTrash);
-  container.appendChild(divTask);
-}
-
-function insertTaskLocalStorage(task, id) {
-  const taskObj = {
-    task,
+function inserirLocalStorage(tarefa, id) {
+  const insertTarefa = {
     id,
+    tarefa,
   };
 
-  tasks.push(taskObj);
+  tarefas.push(insertTarefa);
 
-  localStorage.setItem("tasks", JSON.stringify(tasks));
+  localStorage.setItem("tarefa", JSON.stringify(tarefas));
 }
 
-const btnDel = document.querySelectorAll(".delete");
+const btnDelete = document.querySelectorAll(".delete");
 
-btnDel.forEach((btn) => {
+btnDelete.forEach((btn) => {
   btn.addEventListener("click", (e) => {
-    const uid = e.target.parentNode.getAttribute("uid");
-    console.log(uid);
-    console.log(tasks);
+    const element = e.target;
+    const parentElement = element.parentNode;
+    const idParent = parentElement.getAttribute("uid");
+
+    const filtraTarefas = tarefas.filter((tarefa) => {
+      console.log(tarefa.id, idParent);
+      return tarefa.id !== Number(idParent);
+    });
+
+    console.log(filtraTarefas);
+
+    localStorage.setItem("tarefa", JSON.stringify(filtraTarefas));
   });
 });
-

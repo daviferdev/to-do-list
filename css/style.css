@@ -124,18 +124,18 @@ body {
   background: var(--blue);
 }
 
-.tarefas {
+.s-tarefas {
   padding-top: 8rem;
 }
 
-.tarefas .container .tarefas-estado {
+.s-tarefas .container .s-tarefas-estado {
   display: flex;
   justify-content: space-between;
   align-self: center;
   margin-bottom: 2rem;
 }
 
-.tarefas .container .tarefas-estado span {
+.s-tarefas .container .s-tarefas-estado span {
   background: var(--gray-400);
   border-radius: 99.9rem;
   padding: 0.2rem 0.8rem;
@@ -143,22 +143,22 @@ body {
   font-size: 1.2rem;
 }
 
-.tarefas .container .tarefas-estado .left .right {
+.s-tarefas .container .s-tarefas-estado .left .right {
   display: flex;
   align-items: center;
 }
 
-.tarefas .container .tarefas-estado .left strong {
+.s-tarefas .container .s-tarefas-estado .left strong {
   color: var(--blue);
   font-size: 1.4rem;
 }
 
-.tarefas .container .tarefas-estado .right strong {
+.s-tarefas .container .s-tarefas-estado .right strong {
   color: var(--purple);
   font-size: 1.4rem;
 }
 
-.tarefas .container .tarefa {
+.s-tarefas .container .tarefa {
   display: flex;
   justify-content: space-between;
   align-items: center;
