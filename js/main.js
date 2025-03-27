@@ -34,12 +34,17 @@ function criaTarefa(tarefa, id) {
   const p = document.createElement("p");
   p.innerHTML = tarefa;
 
+  const divTarefa = document.createElement("div");
+  divTarefa.classList.add("divTarefa")
+
   const span = document.createElement("span");
   span.classList.add("material-symbols-outlined", "delete");
   span.innerHTML = "delete";
 
-  li.appendChild(div);
-  li.appendChild(p);
+  divTarefa.appendChild(div);
+  divTarefa.appendChild(p)
+
+  li.appendChild(divTarefa)
   li.appendChild(span);
   li.setAttribute("uid", id);
 

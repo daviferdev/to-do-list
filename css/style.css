@@ -225,3 +225,8 @@ body {
   text-decoration: line-through;
 }
 
+.divTarefa {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
