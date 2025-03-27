@@ -221,3 +221,7 @@ body {
   'opsz' 24
 }
 
+.concluida {
+  text-decoration: line-through;
+}
+

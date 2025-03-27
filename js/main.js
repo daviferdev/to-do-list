@@ -1,5 +1,6 @@
 const form = document.querySelector(".form");
 let tarefas = JSON.parse(localStorage.getItem("tarefa")) || [];
+const tarefaCriada = document.querySelector(".tarefa-criada");
 
 tarefas.forEach((tarefa) => {
   criaTarefa(tarefa.tarefa, tarefa.id);
@@ -12,6 +13,8 @@ form.addEventListener("submit", (e) => {
   const inputValue = element.elements["tarefa"];
   const tarefas = document.querySelector(".lista-tarefas");
   const id = tarefas.children.length;
+
+  tarefaCriada.innerHTML = id + 1;
 
   criaTarefa(inputValue.value, id);
   inserirLocalStorage(inputValue.value, id);
@@ -67,6 +70,26 @@ document.addEventListener("click", (e) => {
     tarefas = tarefas.filter((tarefa) => tarefa.id !== idParent);
 
     localStorage.setItem("tarefa", JSON.stringify(tarefas));
+    tarefaCriada.innerHTML = tarefaCriada.innerHTML - 1;
     parentElement.remove();
   }
+});
+
+const checkBox = document.querySelectorAll(".tarefa .checkbox");
+
+checkBox.forEach((checkbox) => {
+  checkbox.addEventListener("click", (e) => {
+    const parent = e.target;
+    const tarefa = parent.parentNode.querySelector("p");
+
+    if (parent.classList.contains("checkbox")) {
+      tarefa.classList.add("concluida");
+      parent.classList.add("checkboxChecked");
+      parent.classList.remove("checkbox");
+    } else {
+      tarefa.classList.remove("concluida");
+      parent.classList.add("checkbox");
+      parent.classList.remove("checkboxChecked");
+    }
+  });
 });
