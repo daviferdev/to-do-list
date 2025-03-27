@@ -1,5 +1,5 @@
 const form = document.querySelector(".form");
-const tarefas = JSON.parse(localStorage.getItem("tarefa")) || [];
+let tarefas = JSON.parse(localStorage.getItem("tarefa")) || [];
 
 tarefas.forEach((tarefa) => {
   criaTarefa(tarefa.tarefa, tarefa.id);
@@ -57,19 +57,16 @@ function inserirLocalStorage(tarefa, id) {
 
 const btnDelete = document.querySelectorAll(".delete");
 
-btnDelete.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("delete")) {
     const element = e.target;
     const parentElement = element.parentNode;
-    const idParent = parentElement.getAttribute("uid");
+    let idParent = parentElement.getAttribute("uid");
+    idParent = Number(idParent);
 
-    const filtraTarefas = tarefas.filter((tarefa) => {
-      console.log(tarefa.id, idParent);
-      return tarefa.id !== Number(idParent);
-    });
+    tarefas = tarefas.filter((tarefa) => tarefa.id !== idParent);
 
-    console.log(filtraTarefas);
-
-    localStorage.setItem("tarefa", JSON.stringify(filtraTarefas));
-  });
+    localStorage.setItem("tarefa", JSON.stringify(tarefas));
+    parentElement.remove();
+  }
 });
