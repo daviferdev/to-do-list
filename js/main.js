@@ -1,5 +1,6 @@
 const form = document.querySelector(".form");
 let tarefas = JSON.parse(localStorage.getItem("tarefa")) || [];
+
 const tarefaCriada = document.querySelector(".tarefa-criada");
 
 tarefas.forEach((tarefa) => {
@@ -13,8 +14,6 @@ form.addEventListener("submit", (e) => {
   const inputValue = element.elements["tarefa"];
   const tarefas = document.querySelector(".lista-tarefas");
   const id = tarefas.children.length;
-
-  tarefaCriada.innerHTML = id + 1;
 
   criaTarefa(inputValue.value, id);
   inserirLocalStorage(inputValue.value, id);
@@ -45,6 +44,7 @@ function criaTarefa(tarefa, id) {
   li.setAttribute("uid", id);
 
   listaDeTarefas.appendChild(li);
+  tarefaCriada.innerHTML =  id + 1;
 }
 
 function inserirLocalStorage(tarefa, id) {
@@ -68,9 +68,9 @@ document.addEventListener("click", (e) => {
     idParent = Number(idParent);
 
     tarefas = tarefas.filter((tarefa) => tarefa.id !== idParent);
+    tarefaCriada.innerHTML = tarefas.length;
 
     localStorage.setItem("tarefa", JSON.stringify(tarefas));
-    tarefaCriada.innerHTML = tarefaCriada.innerHTML - 1;
     parentElement.remove();
   }
 });
